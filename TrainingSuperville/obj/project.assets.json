@@ -1130,7 +1130,7 @@
           }
         }
       },
-      "Serilog/2.9.0": {
+      "Serilog/2.9.1-dev-01151": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Serilog.dll": {}
@@ -1215,10 +1215,10 @@
           "lib/netstandard2.0/Serilog.Settings.Configuration.dll": {}
         }
       },
-      "Serilog.Sinks.Console/3.1.1": {
+      "Serilog.Sinks.Console/3.1.2-dev-00824": {
         "type": "package",
         "dependencies": {
-          "Serilog": "2.5.0",
+          "Serilog": "2.8.0",
           "System.Console": "4.3.0",
           "System.Runtime.InteropServices": "4.3.0",
           "System.Runtime.InteropServices.RuntimeInformation": "4.3.0"
@@ -3838,10 +3838,10 @@
         "runtimes/ubuntu.16.10-x64/native/System.Security.Cryptography.Native.OpenSsl.so"
       ]
     },
-    "Serilog/2.9.0": {
-      "sha512": "QzcrD33A3+CsVvwi1I5CSei67ikQnkGrw7SscgL+vZTghaC2aNYg8fiUcedXHzKJFNjgje9rBjzwYGQTKEaXaA==",
+    "Serilog/2.9.1-dev-01151": {
+      "sha512": "c835RwfGi8wcJu6G+S3A0pAGEJJRLFrPQlW1ICF90CWnqTaYYYz4quOoR3qPxlV+bHO4MyBhLq9qTC6J8ZEhtw==",
       "type": "package",
-      "path": "serilog/2.9.0",
+      "path": "serilog/2.9.1-dev-01151",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3855,7 +3855,7 @@
         "lib/netstandard1.3/Serilog.xml",
         "lib/netstandard2.0/Serilog.dll",
         "lib/netstandard2.0/Serilog.xml",
-        "serilog.2.9.0.nupkg.sha512",
+        "serilog.2.9.1-dev-01151.nupkg.sha512",
         "serilog.nuspec"
       ]
     },
@@ -3930,10 +3930,10 @@
         "serilog.settings.configuration.nuspec"
       ]
     },
-    "Serilog.Sinks.Console/3.1.1": {
-      "sha512": "56mI5AqvyF/i/c2451nvV71kq370XOCE4Uu5qiaJ295sOhMb9q3BWwG7mWLOVSnmpWiq0SBT3SXfgRXGNP6vzA==",
+    "Serilog.Sinks.Console/3.1.2-dev-00824": {
+      "sha512": "yIaLhmd/Rv1aOSwlH6AjUQm3ICxXCDPzMy7eKcwWeZp44oEBiGgurHyNp8PCXR4dXNHiBNMKjQQ9ymgx9Khl8g==",
       "type": "package",
-      "path": "serilog.sinks.console/3.1.1",
+      "path": "serilog.sinks.console/3.1.2-dev-00824",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -3943,7 +3943,9 @@
         "lib/netcoreapp1.1/Serilog.Sinks.Console.xml",
         "lib/netstandard1.3/Serilog.Sinks.Console.dll",
         "lib/netstandard1.3/Serilog.Sinks.Console.xml",
-        "serilog.sinks.console.3.1.1.nupkg.sha512",
+        "lib/netstandard2.0/Serilog.Sinks.Console.dll",
+        "lib/netstandard2.0/Serilog.Sinks.Console.xml",
+        "serilog.sinks.console.3.1.2-dev-00824.nupkg.sha512",
         "serilog.sinks.console.nuspec"
       ]
     },
@@ -7741,9 +7743,9 @@
     ".NETCoreApp,Version=v3.0": [
       "Microsoft.AspNetCore.Mvc.TagHelpers >= 2.2.0",
       "Microsoft.VisualStudio.Azure.Containers.Tools.Targets >= 1.9.5",
-      "Serilog >= 2.9.0",
+      "Serilog >= 2.9.1-dev-01151",
       "Serilog.AspNetCore >= 3.1.0",
-      "Serilog.Sinks.Console >= 3.1.1"
+      "Serilog.Sinks.Console >= 3.1.2-dev-00824"
     ]
   },
   "packageFolders": {
@@ -7754,11 +7756,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
+      "projectUniqueName": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
       "projectName": "TrainingSuperville",
-      "projectPath": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
+      "projectPath": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
       "packagesPath": "C:\\Users\\mariano.garcia\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\obj\\",
+      "outputPath": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -7800,7 +7802,7 @@
           },
           "Serilog": {
             "target": "Package",
-            "version": "[2.9.0, )"
+            "version": "[2.9.1-dev-01151, )"
           },
           "Serilog.AspNetCore": {
             "target": "Package",
@@ -7808,7 +7810,7 @@
           },
           "Serilog.Sinks.Console": {
             "target": "Package",
-            "version": "[3.1.1, )"
+            "version": "[3.1.2-dev-00824, )"
           }
         },
         "imports": [

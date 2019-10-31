@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj": {}
+    "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj": {
+    "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
+        "projectUniqueName": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
         "projectName": "TrainingSuperville",
-        "projectPath": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
+        "projectPath": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\TrainingSuperville.csproj",
         "packagesPath": "C:\\Users\\mariano.garcia\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\jobProjects\\TainingSuperville\\TrainingSuperville\\TrainingSuperville\\obj\\",
+        "outputPath": "C:\\Projects\\jobProjects\\00-EnGitHub\\TrainingSuperville\\TrainingSuperville\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
@@ -53,7 +53,7 @@
             },
             "Serilog": {
               "target": "Package",
-              "version": "[2.9.0, )"
+              "version": "[2.9.1-dev-01151, )"
             },
             "Serilog.AspNetCore": {
               "target": "Package",
@@ -61,7 +61,7 @@
             },
             "Serilog.Sinks.Console": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.2-dev-00824, )"
             }
           },
           "imports": [
