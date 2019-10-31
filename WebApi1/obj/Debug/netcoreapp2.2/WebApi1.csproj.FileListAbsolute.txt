@@ -1,0 +1,3 @@
+C:\Projects\jobProjects\TainingSuperville\TrainingSuperville\WebApi1\obj\Debug\netcoreapp2.2\WebApi1.csprojAssemblyReference.cache
+C:\Projects\jobProjects\TainingSuperville\TrainingSuperville\WebApi1\obj\Debug\netcoreapp2.2\WebApi1.AssemblyInfoInputs.cache
+C:\Projects\jobProjects\TainingSuperville\TrainingSuperville\WebApi1\obj\Debug\netcoreapp2.2\WebApi1.AssemblyInfo.cs
