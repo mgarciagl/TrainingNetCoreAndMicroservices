@@ -1,19 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Ocelot.Middleware;
-using Ocelot.DependencyInjection;
+using Microsoft.OpenApi.Models;
 
-namespace Gateway.WebApi
+namespace Product.WebApi
 {
     public class Startup
     {
@@ -28,20 +20,34 @@ namespace Gateway.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddOcelot(Configuration);
+
+            // Register the Swagger generator, defining 1 or more Swagger documents
+            services.AddSwaggerGen(d =>
+            {
+                d.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Product API",
+                    Version = "v1"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public async void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(d =>
+            {
+                d.SwaggerEndpoint("/swagger/v1/swagger.json", "Product API V1");
+            });
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
             }
 
             app.UseHttpsRedirection();
@@ -54,9 +60,6 @@ namespace Gateway.WebApi
             {
                 endpoints.MapControllers();
             });
-
-            //app.UseMvc();
-            await app.UseOcelot();
         }
     }
 }

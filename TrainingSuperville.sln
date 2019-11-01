@@ -5,9 +5,9 @@ VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSuperville.WebApp", "TrainingSuperville\TrainingSuperville.WebApp.csproj", "{3F4B2EFB-37F4-481B-B7B1-3BE9A7935F8C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.WebApi", "WebApi1\Client.WebApi.csproj", "{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.WebApi", "Client.WebApi\Client.WebApi.csproj", "{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.WebApi", "WebApi2\Product.WebApi.csproj", "{77C28B58-FBDC-4434-8106-FAB37BCE9133}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.WebApi", "Product.WebApi\Product.WebApi.csproj", "{77C28B58-FBDC-4434-8106-FAB37BCE9133}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSuperville.Framework", "SharedClasses\TrainingSuperville.Framework.csproj", "{142D2878-921B-4DD9-81C4-EA7541C441AA}"
 EndProject
