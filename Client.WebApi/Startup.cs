@@ -1,3 +1,6 @@
+using AutoMapper;
+using Client.WebApi.Domain.DataAccess;
+using Client.WebApi.Domain.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +23,9 @@ namespace Client.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped(_ => new ClientContext());
+            services.AddTransient<IClientRepository, ClientRepository>();
+            services.AddAutoMapper(typeof(Startup));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(d =>
@@ -40,7 +46,7 @@ namespace Client.WebApi
 
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc),
             // specifying the Swagger JSON endpoint.
-            app.UseSwaggerUI(d => 
+            app.UseSwaggerUI(d =>
             {
                 d.SwaggerEndpoint("/swagger/v1/swagger.json", "Client API V1");
             });

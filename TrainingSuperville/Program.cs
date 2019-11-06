@@ -13,8 +13,6 @@ namespace TrainingSuperville
         {
             Storage storageInstance = Storage.GetInstance();
 
-           
-
             CreateHostBuilder(args).Build().Run();
         }
 

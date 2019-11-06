@@ -1,48 +1,41 @@
-﻿using Client.WebApi.Extensions;
-using Client.WebApi.Models;
-using Client.WebApi.Models.Entities;
+﻿using Client.WebApi.Domain.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Client.WebApi.Controllers
 {
     #region ClientController
+    [Produces("application/json")]
     [Route("api/client")]
     [ApiController]
     public class ClientController : ControllerBase
     {
-        private readonly Storage storageInstance = Storage.GetInstance();
+        private readonly IClientRepository _clientRepository;
+
+        public ClientController(IClientRepository clientRepository)
+        {
+            _clientRepository = clientRepository;
+        }
         #endregion
 
         // GET: api/client
         [HttpGet]
-        public ActionResult<IEnumerable<StorableEntity>> GetAll()
+        public IActionResult GetAll()
         {
-            var clients = storageInstance.GetAll(typeof(Models.Entities.Client));
-
-            foreach (var item in clients)
-            {
-                item.Description = MyExtensionMethods.GetDescription(item);
-            }
-
-            return clients.ToList();
+            return Ok(_clientRepository.GetAll());
         }
 
         #region snippet_GetByID
         // GET: api/client/5
         [HttpGet("{id}")]
-        public ActionResult<Models.Entities.Client> GetClient(Guid id)
+        public ActionResult<Domain.Entities.Client> GetClient(int id)
         {
-            var client = (Models.Entities.Client)storageInstance.Get(typeof(Models.Entities.Client), id);
+            var client = _clientRepository.Get(id);
 
             if (client == null)
             {
                 return NotFound();
             }
-
-            client.Description = MyExtensionMethods.GetDescription(client);
 
             return client;
         }
@@ -51,9 +44,9 @@ namespace Client.WebApi.Controllers
         #region snippet_Create
         // POST: api/client
         [HttpPost]
-        public ActionResult<Models.Entities.Client> PostClient(Models.Entities.Client client)
+        public ActionResult<Domain.Entities.Client> PostClient(Domain.Entities.Client client)
         {
-            storageInstance.Add(client);
+            var result = _clientRepository.Add(client);
 
             return CreatedAtAction(nameof(GetClient), new { id = client.Id }, client);
         }
@@ -62,7 +55,7 @@ namespace Client.WebApi.Controllers
         #region snippet_Update
         // PUT: api/client/5
         [HttpPut("{id}")]
-        public IActionResult PutClient(Guid id, Models.Entities.Client client)
+        public IActionResult PutClient(int id, Domain.Entities.Client client)
         {
             if (id != client.Id)
             {
@@ -71,11 +64,11 @@ namespace Client.WebApi.Controllers
 
             try
             {
-                storageInstance.Update(client);
+                _clientRepository.Update(client);
             }
             catch (Exception /* ex */)
             {
-                var entity = storageInstance.Get(typeof(Models.Entities.Client), id);
+                var entity = _clientRepository.Get(id);
                 if (entity == null)
                 {
                     return NotFound();
@@ -93,15 +86,15 @@ namespace Client.WebApi.Controllers
         #region snippet_Delete
         // DELETE: api/client/5
         [HttpDelete("{id}")]
-        public ActionResult<Models.Entities.Client> DeleteClient(Guid id)
+        public ActionResult<Domain.Entities.Client> DeleteClient(int id)
         {
-            var client = (Models.Entities.Client)storageInstance.Get(typeof(Models.Entities.Client), id);
+            var client = _clientRepository.Get(id);
             if (client == null)
             {
                 return NotFound();
             }
 
-            storageInstance.Remove(typeof(Models.Entities.Client), id);
+            _clientRepository.Remove(id);
 
             return client;
         }

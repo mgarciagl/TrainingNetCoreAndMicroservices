@@ -13,10 +13,10 @@ namespace TrainingSuperville.Controllers
     {
         Storage storageInstance = Storage.GetInstance();
 
-        // GET: Students
-        public IActionResult Index()
+        // GET: StoreableEntities
+        public async Task<IActionResult> Index()
         {
-            var storeableEntities = storageInstance.GetAll();
+            var storeableEntities = await storageInstance.GetAll();
             storeableEntities = storeableEntities.OrderBy(d => d.Id).ToList();
 
             foreach (var item in storeableEntities)
@@ -27,13 +27,13 @@ namespace TrainingSuperville.Controllers
             return View(storeableEntities);
         }
 
-        // GET: Students/CreateClient
+        // GET: StoreableEntities/CreateClient
         public IActionResult CreateClient()
         {
             return View();
         }
 
-        // GET: Students/CreateProduct
+        // GET: StoreableEntities/CreateProduct
         public IActionResult CreateProduct()
         {
             return View();
@@ -42,13 +42,13 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/CreateClient
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateClient(Client client)
+        public async Task<IActionResult> CreateClient(Client client)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    storageInstance.Add(client);
+                    await storageInstance.Add(client);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -64,13 +64,13 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/CreateProduct
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult CreateProduct(Product product)
+        public async Task<IActionResult> CreateProduct(Product product)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    storageInstance.Add(product);
+                    await storageInstance.Add(product);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -84,14 +84,14 @@ namespace TrainingSuperville.Controllers
         }
 
         // GET: StoreableEntities/Edit/5
-        public IActionResult Edit(Guid? id)
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var storeableEntity = storageInstance.Get((Guid)id);
+            var storeableEntity = await storageInstance.Get((int)id);
 
             if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Client)))
             {
@@ -110,13 +110,13 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/EditClient/5
         [HttpPost, ActionName("EditClient")]
         [ValidateAntiForgeryToken]
-        public IActionResult EditClient(Client client)
+        public async Task<IActionResult> EditClient(Client client)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    storageInstance.Update(client);
+                    await storageInstance.Update(client);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -132,13 +132,13 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/EditProduct/5
         [HttpPost, ActionName("EditProduct")]
         [ValidateAntiForgeryToken]
-        public IActionResult EditProduct(Product product)
+        public async Task<IActionResult> EditProduct(Product product)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
-                    storageInstance.Update(product);
+                    await storageInstance.Update(product);
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -152,14 +152,14 @@ namespace TrainingSuperville.Controllers
         }
 
         // GET: StoreableEntities/Delete/5
-        public IActionResult Delete(Guid? id)
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var storeableEntity = storageInstance.Get((Guid)id);
+            var storeableEntity = await storageInstance.Get((int)id);
 
             if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Client)))
             {
@@ -178,9 +178,9 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public IActionResult DeletePost(Guid id)
+        public async Task<IActionResult> DeletePost(int id)
         {
-            var storeableEntity = storageInstance.Get(id);
+            var storeableEntity = await storageInstance.Get(id);
 
             if (storeableEntity == null)
             {
@@ -189,9 +189,9 @@ namespace TrainingSuperville.Controllers
 
             try
             {
-                var result = storageInstance.Remove(storeableEntity.Id);
+                var result = await storageInstance.Remove(storeableEntity.Id);
 
-                if (!result)
+                if (result == null)
                 {
                     throw new Exception();
                 }
@@ -208,9 +208,13 @@ namespace TrainingSuperville.Controllers
             {
                 return View("DeleteClient", storeableEntity);
             }
-            else
+            else if (storeableEntity.GetType().Equals(typeof(Product)))
             {
                 return View("DeleteProduct", storeableEntity);
+            }
+            else
+            {
+                return NotFound();
             }
         }
     }

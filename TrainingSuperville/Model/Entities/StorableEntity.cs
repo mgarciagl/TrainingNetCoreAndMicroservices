@@ -1,10 +1,10 @@
 ﻿using System;
 
-namespace Client.WebApi.Models.Entities
+namespace TrainingSuperville.Models.Entities
 {
     public abstract class StorableEntity
     {
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
     }
 }
