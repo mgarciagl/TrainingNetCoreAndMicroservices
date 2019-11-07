@@ -26,6 +26,7 @@ namespace TrainingSuperville.Models
 
         public async Task<IEnumerable<StorableEntity>> GetAll()
         {
+            IEnumerable<StorableEntity> result;
 
             using (var handler = new HttpClientHandler())
             using (var httpClient = new HttpClient(handler))
@@ -37,103 +38,188 @@ namespace TrainingSuperville.Models
 
                 var clients = await DeserializeResponseContentClients(response);
 
-                return clients;
+                result = clients;
             }
-        }
 
-        public async Task<StorableEntity> Get(int entityId)
-        {
             using (var handler = new HttpClientHandler())
             using (var httpClient = new HttpClient(handler))
             {
-                httpClient.BaseAddress = new Uri(clientUrl);
+                httpClient.BaseAddress = new Uri(productUrl);
                 httpClient.DefaultRequestHeaders.Accept.Clear();
                 httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-                var response = await httpClient.GetAsync("client/" + entityId);
+                var response = await httpClient.GetAsync("product");
 
-                var client = await DeserializeResponseContentClient(response);
+                var products = await DeserializeResponseContentProducts(response);
 
-                return client;
+                result = result.Concat(products);
+            }
+
+            return result;
+        }
+
+        public async Task<StorableEntity> Get(int entityId, Type type)
+        {
+            if (type.Equals(typeof(Client)))
+            {
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(clientUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = await httpClient.GetAsync("client/" + entityId);
+
+                    var client = await DeserializeResponseContentClient(response);
+
+                    return client;
+                }
+            }
+            else
+            {
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(productUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    var response = await httpClient.GetAsync("product/" + entityId);
+
+                    var product = await DeserializeResponseContentProduct(response);
+
+                    return product;
+                }
             }
         }
 
         public async Task<StorableEntity> Add(StorableEntity entity)
         {
-            using (var handler = new HttpClientHandler())
-            using (var httpClient = new HttpClient(handler))
+            if (entity.GetType().Equals(typeof(Client)))
             {
-                httpClient.BaseAddress = new Uri(clientUrl);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(clientUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var myContent = JsonConvert.SerializeObject(entity);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    var myContent = JsonConvert.SerializeObject(entity);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await httpClient.PostAsync("client", byteContent);
+                    var response = await httpClient.PostAsync("client", byteContent);
 
-                var client = await DeserializeResponseContentClient(response);
+                    var client = await DeserializeResponseContentClient(response);
 
-                return client;
+                    return client;
+                }
+            }
+            else
+            {
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(productUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var myContent = JsonConvert.SerializeObject(entity);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+
+                    var response = await httpClient.PostAsync("product", byteContent);
+
+                    var product = await DeserializeResponseContentProduct(response);
+
+                    return product;
+                }
             }
         }
 
         public async Task<StorableEntity> Update(StorableEntity entity)
         {
-            using (var handler = new HttpClientHandler())
-            using (var httpClient = new HttpClient(handler))
+            if (entity.GetType().Equals(typeof(Client)))
             {
-                httpClient.BaseAddress = new Uri(clientUrl);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(clientUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var myContent = JsonConvert.SerializeObject(entity);
-                var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
-                var byteContent = new ByteArrayContent(buffer);
-                byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    var myContent = JsonConvert.SerializeObject(entity);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-                var response = await httpClient.PutAsync("client/" + entity.Id, byteContent);
+                    var response = await httpClient.PutAsync("client/" + entity.Id, byteContent);
 
-                var client = await DeserializeResponseContentClient(response);
+                    var client = await DeserializeResponseContentClient(response);
 
-                return client;
+                    return client;
+                }
             }
-            //var storableEntity = storableEntities.FirstOrDefault(d => d.Id == entity.Id);
-            //if (storableEntity != null && storableEntity.GetType().Equals(typeof(Client)))
-            //{
-            //    var client = (Client)storableEntity;
-            //    var clientUpdated = (Client)entity;
+            else
+            {
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    httpClient.BaseAddress = new Uri(productUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-            //    client.Name = clientUpdated.Name;
-            //    client.Email = clientUpdated.Email;
-            //}
-            //else if (storableEntity != null && storableEntity.GetType().Equals(typeof(Product)))
-            //{
-            //    var product = (Product)storableEntity;
-            //    var productUpdated = (Product)entity;
+                    var myContent = JsonConvert.SerializeObject(entity);
+                    var buffer = System.Text.Encoding.UTF8.GetBytes(myContent);
+                    var byteContent = new ByteArrayContent(buffer);
+                    byteContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
 
-            //    product.Code = productUpdated.Code;
-            //    product.Name = productUpdated.Name;
-            //}
+                    var response = await httpClient.PutAsync("product/" + entity.Id, byteContent);
+
+                    var product = await DeserializeResponseContentProduct(response);
+
+                    return product;
+                }
+            }
         }
 
-        public async Task<StorableEntity> Remove(int entityId)
+        public async Task<StorableEntity> Remove(int entityId, Type type)
         {
-            using (var handler = new HttpClientHandler())
-            using (var httpClient = new HttpClient(handler))
+            if (type.Equals(typeof(Client)))
             {
-                var entity = await Get(entityId);
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    var entity = await Get(entityId, type);
 
-                httpClient.BaseAddress = new Uri(clientUrl);
-                httpClient.DefaultRequestHeaders.Accept.Clear();
-                httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+                    httpClient.BaseAddress = new Uri(clientUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                var response = await httpClient.DeleteAsync("client/" + entity.Id);
+                    var response = await httpClient.DeleteAsync("client/" + entity.Id);
 
-                var client = await DeserializeResponseContentClient(response);
+                    var client = await DeserializeResponseContentClient(response);
 
-                return client;
+                    return client;
+                }
+            }
+            else
+            {
+                using (var handler = new HttpClientHandler())
+                using (var httpClient = new HttpClient(handler))
+                {
+                    var entity = await Get(entityId, type);
+
+                    httpClient.BaseAddress = new Uri(productUrl);
+                    httpClient.DefaultRequestHeaders.Accept.Clear();
+                    httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                    var response = await httpClient.DeleteAsync("product/" + entity.Id);
+
+                    var product = await DeserializeResponseContentProduct(response);
+
+                    return product;
+                }
             }
         }
 

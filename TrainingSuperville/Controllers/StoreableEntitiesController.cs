@@ -84,21 +84,21 @@ namespace TrainingSuperville.Controllers
         }
 
         // GET: StoreableEntities/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int? id, string typeName)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var storeableEntity = await storageInstance.Get((int)id);
-
-            if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Client)))
+            if (typeName.Equals(typeof(Client).Name))
             {
+                var storeableEntity = await storageInstance.Get((int)id, typeof(Client));
                 return View("EditClient", storeableEntity);
             }
-            else if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Product)))
+            else if (typeName.Equals(typeof(Product).Name))
             {
+                var storeableEntity = await storageInstance.Get((int)id, typeof(Product));
                 return View("EditProduct", storeableEntity);
             }
             else
@@ -152,21 +152,21 @@ namespace TrainingSuperville.Controllers
         }
 
         // GET: StoreableEntities/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int? id, string typeName)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var storeableEntity = await storageInstance.Get((int)id);
-
-            if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Client)))
+            if (typeName.Equals(typeof(Client).Name))
             {
+                var storeableEntity = await storageInstance.Get((int)id, typeof(Client));
                 return View("DeleteClient", storeableEntity);
             }
-            else if (storeableEntity != null && storeableEntity.GetType().Equals(typeof(Product)))
+            else if (typeName.Equals(typeof(Product).Name))
             {
+                var storeableEntity = await storageInstance.Get((int)id, typeof(Product));
                 return View("DeleteProduct", storeableEntity);
             }
             else
@@ -178,9 +178,13 @@ namespace TrainingSuperville.Controllers
         // POST: StoreableEntities/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeletePost(int id)
+        public async Task<IActionResult> DeletePost(int id, string typeName)
         {
-            var storeableEntity = await storageInstance.Get(id);
+            Type type = typeof(Client);
+            if (typeName.Equals(typeof(Product).Name)) 
+                type = typeof(Product);
+
+            var storeableEntity = await storageInstance.Get((int)id, type);
 
             if (storeableEntity == null)
             {
@@ -189,7 +193,7 @@ namespace TrainingSuperville.Controllers
 
             try
             {
-                var result = await storageInstance.Remove(storeableEntity.Id);
+                var result = await storageInstance.Remove(storeableEntity.Id, type);
 
                 if (result == null)
                 {
@@ -204,11 +208,11 @@ namespace TrainingSuperville.Controllers
                 ModelState.AddModelError("", "Unable to delete storeable entity. " + "Try again, and if the problem persists " + "see your system administrator.");
             }
 
-            if (storeableEntity.GetType().Equals(typeof(Client)))
+            if (typeName.Equals(typeof(Client).Name))
             {
                 return View("DeleteClient", storeableEntity);
             }
-            else if (storeableEntity.GetType().Equals(typeof(Product)))
+            else if (typeName.Equals(typeof(Product).Name))
             {
                 return View("DeleteProduct", storeableEntity);
             }

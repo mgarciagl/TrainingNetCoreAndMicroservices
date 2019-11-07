@@ -1,48 +1,41 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Product.WebApi.Extensions;
-using Product.WebApi.Models;
-using Product.WebApi.Models.Entities;
+﻿using Product.WebApi.Domain.DataAccess.Interfaces;
+using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Product.WebApi.Controllers
 {
     #region ProductController
+    [Produces("application/json")]
     [Route("api/product")]
     [ApiController]
     public class ProductController : ControllerBase
     {
-        private readonly Storage storageInstance = Storage.GetInstance();
+        private readonly IProductRepository _productRepository;
+
+        public ProductController(IProductRepository productRepository)
+        {
+            _productRepository = productRepository;
+        }
         #endregion
 
         // GET: api/product
         [HttpGet]
-        public ActionResult<IEnumerable<StorableEntity>> GetAll()
+        public IActionResult GetAll()
         {
-            var products = storageInstance.GetAll(typeof(Models.Entities.Product));
-
-            foreach (var item in products)
-            {
-                item.Description = MyExtensionMethods.GetDescription(item);
-            }
-
-            return products.ToList();
+            return Ok(_productRepository.GetAll());
         }
 
         #region snippet_GetByID
         // GET: api/product/5
         [HttpGet("{id}")]
-        public ActionResult<Models.Entities.Product> GetProduct(Guid id)
+        public ActionResult<Domain.Entities.Product> GetProduct(int id)
         {
-            var product = (Models.Entities.Product)storageInstance.Get(typeof(Models.Entities.Product), id);
+            var product = _productRepository.Get(id);
 
             if (product == null)
             {
                 return NotFound();
             }
-
-            product.Description = MyExtensionMethods.GetDescription(product);
 
             return product;
         }
@@ -51,9 +44,9 @@ namespace Product.WebApi.Controllers
         #region snippet_Create
         // POST: api/product
         [HttpPost]
-        public ActionResult<Models.Entities.Product> PostProduct(Models.Entities.Product product)
+        public ActionResult<Domain.Entities.Product> PostProduct(Domain.Entities.Product product)
         {
-            storageInstance.Add(product);
+            var result = _productRepository.Add(product);
 
             return CreatedAtAction(nameof(GetProduct), new { id = product.Id }, product);
         }
@@ -62,7 +55,7 @@ namespace Product.WebApi.Controllers
         #region snippet_Update
         // PUT: api/product/5
         [HttpPut("{id}")]
-        public IActionResult PutProduct(Guid id, Models.Entities.Product product)
+        public IActionResult PutProduct(int id, Domain.Entities.Product product)
         {
             if (id != product.Id)
             {
@@ -71,11 +64,11 @@ namespace Product.WebApi.Controllers
 
             try
             {
-                storageInstance.Update(product);
+                _productRepository.Update(product);
             }
             catch (Exception /* ex */)
             {
-                var entity = storageInstance.Get(typeof(Models.Entities.Product), id);
+                var entity = _productRepository.Get(id);
                 if (entity == null)
                 {
                     return NotFound();
@@ -93,15 +86,15 @@ namespace Product.WebApi.Controllers
         #region snippet_Delete
         // DELETE: api/product/5
         [HttpDelete("{id}")]
-        public ActionResult<Models.Entities.Product> DeleteProduct(Guid id)
+        public ActionResult<Domain.Entities.Product> DeleteProduct(int id)
         {
-            var product = (Models.Entities.Product)storageInstance.Get(typeof(Models.Entities.Product), id);
+            var product = _productRepository.Get(id);
             if (product == null)
             {
                 return NotFound();
             }
 
-            storageInstance.Remove(typeof(Models.Entities.Product), id);
+            _productRepository.Remove(id);
 
             return product;
         }

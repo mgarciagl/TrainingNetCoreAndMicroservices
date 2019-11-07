@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{670D99E2-4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{3627BBD0-89DA-4CCC-B6F4-22FEEC8A588E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gateway.WebApi", "Gateway.WebApi\Gateway.WebApi.csproj", "{0BC68DE2-72C9-4F71-AE91-31CE4537B630}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.WebApi", "Gateway.WebApi\Gateway.WebApi.csproj", "{0BC68DE2-72C9-4F71-AE91-31CE4537B630}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{259B8893-6BF6-4384-B4E5-A836E2DC6B41}"
 EndProject
@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Framework", "Framework", "{8C270D3F-8C9B-48CD-813E-035DFD7AFA9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainingSuperville.Framework.UnitTest", "TrainingSuperville.Framework.UnitTest\TrainingSuperville.Framework.UnitTest.csproj", "{7ABA43B3-547C-4E6E-AD3F-8A535DED0C4F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSuperville.Framework.UnitTest", "TrainingSuperville.Framework.UnitTest\TrainingSuperville.Framework.UnitTest.csproj", "{7ABA43B3-547C-4E6E-AD3F-8A535DED0C4F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{51FD75FB-9FC2-4167-A55C-2F5A5E6E5C60}"
 EndProject

@@ -1,3 +1,6 @@
+using AutoMapper;
+using Product.WebApi.Domain.DataAccess;
+using Product.WebApi.Domain.DataAccess.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +23,9 @@ namespace Product.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddScoped(_ => new ProductContext());
+            services.AddTransient<IProductRepository, ProductRepository>();
+            services.AddAutoMapper(typeof(Startup));
 
             // Register the Swagger generator, defining 1 or more Swagger documents
             services.AddSwaggerGen(d =>
