@@ -14,7 +14,8 @@ namespace TrainingSuperville.Models
     {
         private static readonly Storage _storage = new Storage();
 
-        private static readonly string baseUrl = "http://localhost:7000/";
+        private static readonly string baseUrl = "http://localhost:44300/";
+        //private static readonly string baseUrl = "http://localhost:7000/";
         private static readonly string clientUrl = baseUrl + "client-api/";
         private static readonly string productUrl = baseUrl + "product-api/";
 

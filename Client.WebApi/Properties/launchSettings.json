@@ -29,14 +29,14 @@
     "Docker": {
       "commandName": "Docker",
       "launchBrowser": true,
-      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/weatherforecast",
+      "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}/swagger",
       "environmentVariables": {
         "ASPNETCORE_URLS": "https://+:443;http://+:80",
-        "ASPNETCORE_HTTPS_PORT": "44307"
+        "ASPNETCORE_HTTPS_PORT": "44301"
       },
-      "httpPort": 50314,
+      "httpPort": 50301,
       "useSSL": true,
-      "sslPort": 44307
+      "sslPort": 44301
     }
   }
 }
