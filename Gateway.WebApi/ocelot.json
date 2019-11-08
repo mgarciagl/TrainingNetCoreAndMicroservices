@@ -2,28 +2,28 @@
   "ReRoutes": [
     {
       "DownstreamPathTemplate": "/api/{catchAll}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7001
+          "Host": "172.18.0.3",
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/client-api/{catchAll}"
     },
     {
       "DownstreamPathTemplate": "/api/{catchAll}",
-      "DownstreamScheme": "http",
+      "DownstreamScheme": "https",
       "DownstreamHostAndPorts": [
         {
-          "Host": "localhost",
-          "Port": 7002
+          "Host": "172.18.0.4",
+          "Port": 443
         }
       ],
       "UpstreamPathTemplate": "/product-api/{catchAll}"
     }
   ],
   "GlobalConfiguration": {
-    "BaseUrl": "https://localhost:7000"
+    "BaseUrl": "https://172.18.0.5:443"
   }
 }

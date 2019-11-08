@@ -1,6 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-buster-slim AS base
 WORKDIR /app
-EXPOSE 7001
+EXPOSE 44301
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.0-buster AS build

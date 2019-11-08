@@ -4,10 +4,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29424.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSuperville.WebApp", "TrainingSuperville\TrainingSuperville.WebApp.csproj", "{3F4B2EFB-37F4-481B-B7B1-3BE9A7935F8C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77C28B58-FBDC-4434-8106-FAB37BCE9133} = {77C28B58-FBDC-4434-8106-FAB37BCE9133}
+		{0BC68DE2-72C9-4F71-AE91-31CE4537B630} = {0BC68DE2-72C9-4F71-AE91-31CE4537B630}
+		{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A} = {AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.WebApi", "Client.WebApi\Client.WebApi.csproj", "{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Product.WebApi", "Product.WebApi\Product.WebApi.csproj", "{77C28B58-FBDC-4434-8106-FAB37BCE9133}"
+	ProjectSection(ProjectDependencies) = postProject
+		{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A} = {AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TrainingSuperville.Framework", "SharedClasses\TrainingSuperville.Framework.csproj", "{142D2878-921B-4DD9-81C4-EA7541C441AA}"
 EndProject
@@ -18,6 +26,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{3627BBD0-89DA-4CCC-B6F4-22FEEC8A588E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Gateway.WebApi", "Gateway.WebApi\Gateway.WebApi.csproj", "{0BC68DE2-72C9-4F71-AE91-31CE4537B630}"
+	ProjectSection(ProjectDependencies) = postProject
+		{77C28B58-FBDC-4434-8106-FAB37BCE9133} = {77C28B58-FBDC-4434-8106-FAB37BCE9133}
+		{AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A} = {AF3197FF-6D8E-4CFA-A0A1-2EF37CE86D0A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{259B8893-6BF6-4384-B4E5-A836E2DC6B41}"
 EndProject
