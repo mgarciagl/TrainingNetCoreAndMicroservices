@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "RabbitDemoReceive": {
+      "commandName": "Project"
+    },
+    "Docker": {
+      "commandName": "Docker"
+    }
+  }
+}

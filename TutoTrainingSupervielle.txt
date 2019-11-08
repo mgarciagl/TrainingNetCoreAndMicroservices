@@ -1,0 +1,48 @@
+// Get up Portainer - https://portainer.readthedocs.io/en/stable/deployment.html - https://portainer.readthedocs.io/en/stable/configuration.html
+docker volume create portainer_data
+docker run -d -p 9000:9000 -p 8000:8000 -v /var/run/docker.sock:/var/run/docker.sock portainer/portainer --admin-password='$2a$10$WiF/9D9XWISyHeaZgnwoGOMQJp.FbgdpnlNftwfHPkTf.qdBzirtS'
+// Credential is admin / adminadmin
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// Get MSQ Server from Docker Hub - https://hub.docker.com/_/microsoft-mssql-server 
+	// Getting image and load container
+docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=GlobalG2019" -p 1433:1433 --name sql1 -d microsoft/mssql-server-linux:2017-latest
+
+// Connection String - https://stackoverflow.com/questions/55463316/error-when-connecting-to-sql-server-in-docker-container
+Server=sql1;Database=Clients;User Id=sa;Password=GlobalG2019;
+optionsBuilder.UseSqlServer("Server=sql1;Database=Products;User Id=sa;Password=GlobalG2019;MultipleActiveResultSets=True;");
+
+// Connect to DB instance
+	// Get in to bash
+docker exec -it sql1 "bash"
+	// Get in to sqlcmd
+/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P "GlobalG2019"
+	// Create DB
+CREATE DATABASE Products
+SELECT Name from sys.Databases
+GO
+	// Create Table
+USE Products
+GO
+CREATE TABLE Product (Id INT IDENTITY(1,1) NOT NULL, Code NVARCHAR(250) NOT NULL, Name NVARCHAR(250) NOT NULL, PRIMARY KEY CLUSTERED (Id ASC) WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]) ON [PRIMARY]
+GO
+	// Verify creation
+SELECT * FROM Product;
+GO
+	// Quit sqlcmd
+QUIT
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
